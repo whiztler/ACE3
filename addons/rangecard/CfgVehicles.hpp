@@ -22,15 +22,24 @@ class CfgVehicles {
                     priority = 0.1;
                     icon = QUOTE(PATHTOF(UI\RangeCard_Icon.paa));
                     exceptions[] = {"notOnMap"};
-                };
-                class GVAR(openCopy) {
-                    displayName = CSTRING(OpenRangeCardCopy);
-                    condition = QUOTE(call FUNC(canShowCopy) && !GVAR(RangeCardOpened));
-                    statement = QUOTE(true call FUNC(openRangeCard));
-                    showDisabled = 0;
-                    priority = 0.1;
-                    icon = QUOTE(PATHTOF(UI\RangeCard_Icon.paa));
-                    exceptions[] = {"notOnMap"};
+                    class GVAR(openCopy) {
+                        displayName = CSTRING(OpenRangeCardCopy);
+                        condition = QUOTE(call FUNC(canShowCopy) && !GVAR(RangeCardOpened));
+                        statement = QUOTE(true call FUNC(openRangeCard));
+                        showDisabled = 0;
+                        priority = 0.1;
+                        icon = QUOTE(PATHTOF(UI\RangeCard_Icon.paa));
+                        exceptions[] = {"notOnMap"};
+                    };
+                    class GVAR(makeCopy) {
+                        displayName = CSTRING(CopyRangeCard);
+                        condition = QUOTE(call FUNC(canShow) && !GVAR(RangeCardOpened));
+                        statement = QUOTE(GVAR(ammoClassCopy) = GVAR(ammoClass); GVAR(magazineClassCopy) = GVAR(magazineClass); GVAR(weaponClassCopy) = GVAR(ammoClass););
+                        showDisabled = 0;
+                        priority = 0.1;
+                        icon = QUOTE(PATHTOF(UI\RangeCard_Icon.paa));
+                        exceptions[] = {"notOnMap"};
+                    };
                 };
             };
         };
@@ -44,10 +53,7 @@ class CfgVehicles {
         displayName = "Range Card";
         vehicleClass = "Items";
         class TransportItems {
-            class ACE_RangeCard {
-                name = "ACE_RangeCard";
-                count = 1;
-            };
+            MACRO_ADDITEM(ACE_RangeCard,1);
         };
     };
 

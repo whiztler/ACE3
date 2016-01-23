@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project name="ACE">
     <Package name="Ballistics">
         <!-- MX -->
@@ -1597,6 +1597,11 @@
             <Polish>[ACE] Skrzynka z amunicją</Polish>
             <Spanish>[ACE] Caja de suministros de munición</Spanish>
             <German>[ACE] Munitionskiste</German>
+            <Czech>[ACE] Bedna s municí</Czech>
+            <Portuguese>[ACE] Caixa com suprimentos de munição</Portuguese>
+            <French>[ACE] Caisse de munitions</French>
+            <Hungarian>[ACE] Lőszeres láda</Hungarian>
+            <Russian>[ACE] Ящик с боеприпасами</Russian>
         </Key>
     </Package>
 </Project>

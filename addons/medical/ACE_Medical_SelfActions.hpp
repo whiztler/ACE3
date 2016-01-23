@@ -1,8 +1,7 @@
 class Medical {
     displayName = CSTRING(Actions_Medical);
     runOnHover = 1;
-    hotkey = "M";
-    exceptions[] = {"isNotInside"};
+    exceptions[] = {"isNotInside", "isNotSitting"};
     statement = QUOTE([ARR_3(_target, true, 0)] call DFUNC(displayPatientInformation));
     condition = "true";
     icon = PATHTOF(UI\icons\medical_cross.paa);
@@ -10,7 +9,7 @@ class Medical {
    class ACE_Head {
         displayName = CSTRING(Head);
         icon = PATHTOF(UI\icons\medical_cross.paa);
-        exceptions[] = {"isNotInside"};
+        exceptions[] = {"isNotInside", "isNotSitting"};
         statement = QUOTE([ARR_3(_target, true, 0)] call DFUNC(displayPatientInformation));
         modifierFunction = QUOTE([ARR_4(_target,_player,0,_this select 3)] call FUNC(modifyMedicalAction));
         condition = "true";
@@ -24,7 +23,6 @@ class Medical {
             statement = QUOTE([ARR_4(_player, _target, 'head', 'Bandage')] call DFUNC(treatment));
             showDisabled = 1;
             priority = 2;
-            hotkey = "B";
             icon = PATHTOF(UI\icons\bandage.paa);
         };
         // Advanced medical
@@ -36,7 +34,6 @@ class Medical {
             statement = QUOTE([ARR_4(_player, _target, 'head', 'FieldDressing')] call DFUNC(treatment));
             showDisabled = 0;
             priority = 2;
-            hotkey = "";
             icon = PATHTOF(UI\icons\bandage.paa);
         };
         class PackingBandage: fieldDressing {
@@ -79,12 +76,11 @@ class Medical {
         distance = 5.0;
         condition = "true";
         runOnHover = 1;
-        exceptions[] = {"isNotInside"};
+        exceptions[] = {"isNotInside", "isNotSitting"};
         statement = QUOTE([ARR_3(_target, true, 1)] call DFUNC(displayPatientInformation));
         modifierFunction = QUOTE([ARR_4(_target,_player,1,_this select 3)] call FUNC(modifyMedicalAction));
         showDisabled = 1;
         priority = 2;
-        hotkey = "";
         icon = PATHTOF(UI\icons\medical_cross.paa);
 
         class Bandage {
@@ -95,7 +91,6 @@ class Medical {
             statement = QUOTE([ARR_4(_player, _target, 'body', 'Bandage')] call DFUNC(treatment));
             showDisabled = 1;
             priority = 2;
-            hotkey = "B";
             icon = PATHTOF(UI\icons\bandage.paa);
         };
 
@@ -107,7 +102,6 @@ class Medical {
             statement = QUOTE([ARR_2(_target, true)] call DFUNC(displayTriageCard));
             showDisabled = 1;
             priority = 2;
-            hotkey = "";
             icon = PATHTOF(UI\icons\triageCard.paa);
         };
 
@@ -120,7 +114,6 @@ class Medical {
             statement = QUOTE([ARR_4(_player, _target, 'body', 'FieldDressing')] call DFUNC(treatment));
             showDisabled = 0;
             priority = 2;
-            hotkey = "";
             icon = PATHTOF(UI\icons\bandage.paa);
         };
         class PackingBandage: fieldDressing {
@@ -148,7 +141,7 @@ class Medical {
     class ACE_ArmLeft {
         displayName = ECSTRING(interaction,ArmLeft);
         runOnHover = 1;
-        exceptions[] = {"isNotInside"};
+        exceptions[] = {"isNotInside", "isNotSitting"};
         statement = QUOTE([ARR_3(_target, true, 2)] call DFUNC(displayPatientInformation));
         modifierFunction = QUOTE([ARR_4(_target,_player,2,_this select 3)] call FUNC(modifyMedicalAction));
         condition = "true";
@@ -162,7 +155,6 @@ class Medical {
             statement = QUOTE([ARR_4(_player, _target, 'hand_l', 'Bandage')] call DFUNC(treatment));
             showDisabled = 1;
             priority = 2;
-            hotkey = "B";
             icon = PATHTOF(UI\icons\bandage.paa);
         };
 
@@ -175,7 +167,6 @@ class Medical {
             statement = QUOTE([ARR_4(_player, _target, 'hand_l', 'FieldDressing')] call DFUNC(treatment));
             showDisabled = 0;
             priority = 2;
-            hotkey = "";
             icon = PATHTOF(UI\icons\bandage.paa);
         };
         class PackingBandage: fieldDressing {
@@ -250,7 +241,7 @@ class Medical {
     class ACE_ArmRight {
         displayName = ECSTRING(interaction,ArmRight);
         runOnHover = 1;
-        exceptions[] = {"isNotInside"};
+        exceptions[] = {"isNotInside", "isNotSitting"};
         statement = QUOTE([ARR_3(_target, true, 3)] call DFUNC(displayPatientInformation));
         modifierFunction = QUOTE([ARR_4(_target,_player,3,_this select 3)] call FUNC(modifyMedicalAction));
         condition = "true";
@@ -264,7 +255,6 @@ class Medical {
             statement = QUOTE([ARR_4(_player, _target, 'hand_r', 'Bandage')] call DFUNC(treatment));
             showDisabled = 1;
             priority = 2;
-            hotkey = "B";
             icon = PATHTOF(UI\icons\bandage.paa);
         };
 
@@ -277,7 +267,6 @@ class Medical {
             statement = QUOTE([ARR_4(_player, _target, 'hand_r', 'FieldDressing')] call DFUNC(treatment));
             showDisabled = 0;
             priority = 2;
-            hotkey = "";
             icon = PATHTOF(UI\icons\bandage.paa);
         };
         class PackingBandage: fieldDressing {
@@ -348,7 +337,7 @@ class Medical {
     class ACE_LegLeft {
         displayName = ECSTRING(interaction,LegLeft);
         runOnHover = 1;
-        exceptions[] = {"isNotInside"};
+        exceptions[] = {"isNotInside", "isNotSitting"};
         statement = QUOTE([ARR_3(_target, true, 4)] call DFUNC(displayPatientInformation));
         modifierFunction = QUOTE([ARR_4(_target,_player,4,_this select 3)] call FUNC(modifyMedicalAction));
         condition = "true";
@@ -362,7 +351,6 @@ class Medical {
             statement = QUOTE([ARR_4(_player, _target, 'leg_l', 'Bandage')] call DFUNC(treatment));
             showDisabled = 1;
             priority = 2;
-            hotkey = "B";
             icon = PATHTOF(UI\icons\bandage.paa);
         };
 
@@ -376,7 +364,6 @@ class Medical {
             statement = QUOTE([ARR_4(_player, _target, 'leg_l', 'FieldDressing')] call DFUNC(treatment));
             showDisabled = 0;
             priority = 2;
-            hotkey = "";
             icon = PATHTOF(UI\icons\bandage.paa);
         };
         class PackingBandage: fieldDressing {
@@ -435,7 +422,7 @@ class Medical {
     class ACE_LegRight {
         displayName = ECSTRING(interaction,LegRight);
         runOnHover = 1;
-        exceptions[] = {"isNotInside"};
+        exceptions[] = {"isNotInside", "isNotSitting"};
         statement = QUOTE([ARR_3(_target, true, 5)] call DFUNC(displayPatientInformation));
         modifierFunction = QUOTE([ARR_4(_target,_player,5,_this select 3)] call FUNC(modifyMedicalAction));
         condition = "true";
@@ -449,7 +436,6 @@ class Medical {
             statement = QUOTE([ARR_4(_player, _target, 'leg_r', 'Bandage')] call DFUNC(treatment));
             showDisabled = 1;
             priority = 2;
-            hotkey = "B";
             icon = PATHTOF(UI\icons\bandage.paa);
         };
 
@@ -463,7 +449,6 @@ class Medical {
             statement = QUOTE([ARR_4(_player, _target, 'leg_r', 'FieldDressing')] call DFUNC(treatment));
             showDisabled = 0;
             priority = 2;
-            hotkey = "";
             icon = PATHTOF(UI\icons\bandage.paa);
         };
         class PackingBandage: fieldDressing {

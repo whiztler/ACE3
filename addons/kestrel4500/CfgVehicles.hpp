@@ -10,25 +10,25 @@ class CfgVehicles {
                     showDisabled = 0;
                     priority = 0.1;
                     icon = QUOTE(PATHTOF(UI\Kestrel4500_Icon.paa));
-                    exceptions[] = {"notOnMap"};
-                };
-                class GVAR(show) {
-                    displayName = CSTRING(ShowKestrel);
-                    condition = QUOTE(call FUNC(canShow) && !GVAR(Overlay));
-                    statement = QUOTE(call FUNC(displayKestrel));
-                    showDisabled = 0;
-                    priority = 0.2;
-                    icon = QUOTE(PATHTOF(UI\Kestrel4500_Icon.paa));
-                    exceptions[] = {"notOnMap", "isNotInside"};
-                };
-                class GVAR(hide) {
-                    displayName = CSTRING(HideKestrel);
-                    condition = QUOTE(GVAR(Overlay));
-                    statement = QUOTE(call FUNC(displayKestrel));
-                    showDisabled = 0;
-                    priority = 0.3;
-                    icon = QUOTE(PATHTOF(UI\Kestrel4500_Icon.paa));
-                    exceptions[] = {"notOnMap", "isNotInside"};
+                    exceptions[] = {"notOnMap", "isNotInside", "isNotSitting"};
+                    class GVAR(show) {
+                        displayName = CSTRING(ShowKestrel);
+                        condition = QUOTE(call FUNC(canShow) && !GVAR(Overlay));
+                        statement = QUOTE(call FUNC(displayKestrel));
+                        showDisabled = 0;
+                        priority = 0.2;
+                        icon = QUOTE(PATHTOF(UI\Kestrel4500_Icon.paa));
+                        exceptions[] = {"notOnMap", "isNotInside", "isNotSitting"};
+                    };
+                    class GVAR(hide) {
+                        displayName = CSTRING(HideKestrel);
+                        condition = QUOTE(GVAR(Overlay));
+                        statement = QUOTE(call FUNC(displayKestrel));
+                        showDisabled = 0;
+                        priority = 0.3;
+                        icon = QUOTE(PATHTOF(UI\Kestrel4500_Icon.paa));
+                        exceptions[] = {"notOnMap", "isNotInside", "isNotSitting"};
+                    };
                 };
             };
         };
@@ -39,13 +39,10 @@ class CfgVehicles {
         author = "Ruthberg";
         scope = 2;
         scopeCurator = 2;
-        displayName = "Kestrel 4500";
+        displayName = CSTRING(Name);
         vehicleClass = "Items";
         class TransportItems {
-            class ACE_Kestrel4500 {
-                name = "ACE_Kestrel4500";
-                count = 1;
-            };
+            MACRO_ADDITEM(ACE_Kestrel4500,1);
         };
     };
 

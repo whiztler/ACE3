@@ -12,16 +12,14 @@ class CfgPatches {
     };
 };
 
+#include "CfgActions.hpp"
 #include "CfgEventHandlers.hpp"
 #include "CfgFactionClasses.hpp"
 #include "CfgVehicles.hpp"
 #include "CfgWeapons.hpp"
-#include "CFgSounds.hpp"
+#include "CfgSounds.hpp"
 #include "ACE_Medical_Treatments.hpp"
 #include "ACE_Settings.hpp"
 #include "UI\RscTitles.hpp"
 #include "UI\triagecard.hpp"
 
-class ACE_Extensions {
-    extensions[] += {"ace_medical"};
-};

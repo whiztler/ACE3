@@ -21,24 +21,18 @@
  */
 #include "script_component.hpp"
 
-private ["_shooterMan", "_bisAirFriction", "_temperature", "_newMuzzleVelocityCoefficent", "_bulletVelocity", "_bulletSpeed"];
-
-disableSerialization;
+if (!GVAR(airResistanceEnabled)) exitWith {};
 
 PARAMS_7(_vehicle,_weapon,_muzzle,_mode,_ammo,_magazine,_projectile);
 
-if (!GVAR(airResistanceEnabled)) exitWith {};
+private ["_shooterMan", "_temperature", "_newMuzzleVelocityCoefficent", "_bulletVelocity", "_bulletSpeed"];
+
 // Large enough distance to not simulate any wind deflection
 if (_vehicle distance ACE_player > 8000) exitWith {false};
 
 //AI will have no clue how to use:
 _shooterMan = gunner _vehicle;
 if (!([_shooterMan] call EFUNC(common,isPlayer))) exitWith {false};
-
-//Should be zero, just make sure:
-_bisAirFriction = getNumber (configFile >> "CfgAmmo" >> _ammo >> "airFriction");
-if (_bisAirFriction != 0) exitWith {ERROR("Non zero base airFriction");};
-
 
 //Calculate air density:
 _altitude = (getPosASL _vehicle) select 2;
@@ -65,8 +59,8 @@ if (_newMuzzleVelocityCoefficent != 1) then {
     PARAMS_2(_args,_pfID);
     EXPLODE_4_PVT(_args,_shell,_airFriction,_time,_relativeDensity);
 
-    if (isNull _shell || {!alive _shell}) exitwith {
-        [_pfID] call cba_fnc_removePerFrameHandler;
+    if (isNull _shell || {!alive _shell}) exitWith {
+        [_pfID] call CBA_fnc_removePerFrameHandler;
     };
 
     _deltaT = ACE_time - _time;

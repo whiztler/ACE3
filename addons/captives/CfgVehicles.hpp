@@ -12,17 +12,17 @@ class CfgVehicles {
                 exceptions[] = {};
                 icon = QUOTE(PATHTOF(UI\handcuff_ca.paa));
             };
-            class ACE_RemoveHandcuffs {
-                displayName = CSTRING(ReleaseCaptive);
-                selection = "righthand";
-                distance = 2;
-                condition = QUOTE([ARR_2(_player, _target)] call FUNC(canRemoveHandcuffs));
-                statement = QUOTE([ARR_2(_player, _target)] call FUNC(doRemoveHandcuffs));
-                exceptions[] = {};
-                icon = QUOTE(PATHTOF(UI\handcuff_ca.paa));
-            };
 
             class ACE_MainActions {
+                class ACE_RemoveHandcuffs {
+                    displayName = CSTRING(ReleaseCaptive);
+                    selection = "righthand";
+                    distance = 2;
+                    condition = QUOTE([ARR_2(_player, _target)] call FUNC(canRemoveHandcuffs));
+                    statement = QUOTE([ARR_2(_player, _target)] call FUNC(doRemoveHandcuffs));
+                    exceptions[] = {};
+                    icon = QUOTE(PATHTOF(UI\handcuff_ca.paa));
+                };
                 class ACE_EscortCaptive {
                     displayName = CSTRING(EscortCaptive);
                     distance = 4;
@@ -32,7 +32,6 @@ class CfgVehicles {
                     showDisabled = 0;
                     icon = QUOTE(PATHTOF(UI\captive_ca.paa));
                     priority = 2.3;
-                    hotkey = "E";
                 };
                 class ACE_StopEscorting {
                     displayName = CSTRING(StopEscorting);
@@ -43,7 +42,6 @@ class CfgVehicles {
                     showDisabled = 0;
                     icon = QUOTE(PATHTOF(UI\captive_ca.paa));
                     priority = 2.3;
-                    hotkey = "E";
                 };
                 class ACE_LoadCaptive {
                     displayName = CSTRING(LoadCaptive);
@@ -54,17 +52,13 @@ class CfgVehicles {
                     showDisabled = 0;
                     icon = QUOTE(PATHTOF(UI\captive_ca.paa));
                     priority = 2.2;
-                    hotkey = "L";
                 };
-                class ACE_FriskPerson {
-                    displayName = CSTRING(FriskPerson);
-                    distance = 2;
-                    condition = QUOTE([ARR_2(_player, _target)] call FUNC(canFriskPerson));
-                    statement = QUOTE([ARR_2(_player, _target)] call FUNC(doFriskPerson));
-                    showDisabled = 0;
-                    //icon = "";  //@todo
-                    priority = 3;
-                    hotkey = "F";
+                class GVAR(UnloadCaptive) {
+                    displayName = CSTRING(UnloadCaptive);
+                    distance = 4;
+                    condition = QUOTE([ARR_2(_player, _target)] call FUNC(canUnloadCaptive));
+                    statement = QUOTE([ARR_2(_player, _target)] call FUNC(doUnloadCaptive));
+                    priority = 1.2;
                 };
             };
         };
@@ -77,7 +71,6 @@ class CfgVehicles {
                 exceptions[] = {"isNotEscorting"};
                 showDisabled = 0;
                 priority = 2.3;
-                hotkey = "C";
             };
             class ACE_StartSurrenderingSelf {
                 displayName = CSTRING(StartSurrendering);
@@ -100,7 +93,7 @@ class CfgVehicles {
         };
     };
 
-#define MACRO_LOADUNLOADCAPTIVE \
+#define MACRO_LOADCAPTIVE \
         class ACE_Actions { \
             class ACE_MainActions { \
                 class GVAR(LoadCaptive) { \
@@ -111,39 +104,32 @@ class CfgVehicles {
                     exceptions[] = {"isNotEscorting"}; \
                     priority = 1.2; \
                 }; \
-                class GVAR(UnloadCaptive) { \
-                    displayName = CSTRING(UnloadCaptive); \
-                    distance = 4; \
-                    condition = QUOTE([ARR_2(_player, _target)] call FUNC(canUnloadCaptive)); \
-                    statement = QUOTE([ARR_2(_player, _target)] call FUNC(doUnloadCaptive)); \
-                    priority = 1.2; \
-                }; \
             }; \
         };
 
     class LandVehicle;
     class Car: LandVehicle {
-        MACRO_LOADUNLOADCAPTIVE
+        MACRO_LOADCAPTIVE
     };
     class Tank: LandVehicle {
-        MACRO_LOADUNLOADCAPTIVE
+        MACRO_LOADCAPTIVE
     };
 
     class Air;
     class Helicopter: Air {
-        MACRO_LOADUNLOADCAPTIVE
+        MACRO_LOADCAPTIVE
     };
     class Plane: Air {
-        MACRO_LOADUNLOADCAPTIVE
+        MACRO_LOADCAPTIVE
     };
 
     class Ship;
     class Ship_F: Ship {
-        MACRO_LOADUNLOADCAPTIVE
+        MACRO_LOADCAPTIVE
     };
 
     class StaticWeapon: LandVehicle {
-        MACRO_LOADUNLOADCAPTIVE
+        MACRO_LOADCAPTIVE
     };
 
     class Box_NATO_Support_F;
@@ -163,16 +149,32 @@ class CfgVehicles {
     class GVAR(ModuleSurrender): Module_F {
         author = ECSTRING(common,ACETeam);
         category = "ACE";
-        displayName = CSTRING(ModuleSurrender_DisplayName); //Make Unit Surrender
+        displayName = CSTRING(ModuleSurrender_DisplayName);
         function = QFUNC(moduleSurrender);
         scope = 2;  //show in editor
-        isGlobal = 1; //run global
+        isGlobal = 0; //run on server
         isTriggerActivated  = 1; //Wait for triggers
         icon = QUOTE(PATHTOF(UI\Icon_Module_Make_Unit_Surrender_ca.paa));
         functionPriority = 0;
         class Arguments {};
         class ModuleDescription: ModuleDescription {
-            description = CSTRING(ModuleSurrender_Description); //Sync a unit to make them surrender.<br/>Source: ace_captives
+            description = CSTRING(ModuleSurrender_Description);
+            sync[] = {"AnyAI"};
+        };
+    };
+    class GVAR(ModuleHandcuffed): Module_F {
+        author = ECSTRING(common,ACETeam);
+        category = "ACE";
+        displayName = CSTRING(ModuleHandcuffed_DisplayName);
+        function = QFUNC(moduleHandcuffed);
+        scope = 2;  //show in editor
+        isGlobal = 0; //run on server
+        isTriggerActivated  = 1; //Wait for triggers
+        icon = QUOTE(PATHTOF(UI\Icon_Module_Make_Unit_Handcuffed_ca.paa));
+        functionPriority = 0;
+        class Arguments {};
+        class ModuleDescription: ModuleDescription {
+            description = CSTRING(ModuleHandcuffed_Description);
             sync[] = {"AnyAI"};
         };
     };
@@ -186,6 +188,7 @@ class CfgVehicles {
         scope = 2;
         icon = QUOTE(PATHTOF(UI\Icon_Module_settings_ca.paa));
         isGlobal = 1;
+        isSingular = 1;
         class Arguments {
             class allowHandcuffOwnSide {
                 displayName = CSTRING(ModuleSettings_handcuffSide_name);
@@ -198,6 +201,26 @@ class CfgVehicles {
                 description = CSTRING(ModuleSettings_allowSurrender_description);
                 typeName = "BOOL";
                 defaultValue = 1;
+            };
+            class requireSurrender {
+                displayName = CSTRING(ModuleSettings_requireSurrender_name);
+                description = CSTRING(ModuleSettings_requireSurrender_description);
+                typeName = "NUMBER";
+                class values {
+                    class disable {
+                        name = ECSTRING(common,No);
+                        value = 0;
+                    };
+                    class Surrender  {
+                        name = CSTRING(SurrenderOnly);
+                        value = 1;
+                        default = 1;
+                    };
+                    class SurrenderOrNoWeapon  {
+                        name = CSTRING(SurrenderOrNoWeapon);
+                        value = 2;
+                    };
+                };
             };
         };
         class ModuleDescription: ModuleDescription {

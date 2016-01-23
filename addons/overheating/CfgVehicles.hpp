@@ -11,17 +11,15 @@ class CfgVehicles {
                     showDisabled = 0;
                     priority = 3;
                     icon = QUOTE(PATHTOF(UI\spare_barrel_ca.paa));
-                    hotkey = "B";
                 };
                 class ACE_CheckTemperature {
                     displayName = CSTRING(CheckTemperatureShort);
                     condition = "switch (currentWeapon _player) do {case (''): {false}; case (primaryWeapon _player); case (secondaryWeapon _player); case (handgunWeapon _player): {true}; default {false}}";
-                    exceptions[] = {"isNotInside"};
+                    exceptions[] = {"isNotInside", "isNotSitting"};
                     statement = QUOTE( [ARR_2(_player, currentWeapon _player)] call FUNC(CheckTemperature); );
                     showDisabled = 0;
                     priority = 2.9;
                     icon = QUOTE(PATHTOF(UI\temp_ca.paa));
-                    hotkey = "P";
                 };
             };
         };

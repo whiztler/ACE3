@@ -6,6 +6,7 @@ class ACE_ModuleExplosive: ACE_Module {
     function = QUOTE(FUNC(module));
     scope = 2;
     isGlobal = 1;
+    isSingular = 1;
     icon = PATHTOF(UI\Icon_Module_Explosives_ca.paa);
     class Arguments {
         class RequireSpecialist {
@@ -17,6 +18,12 @@ class ACE_ModuleExplosive: ACE_Module {
         class PunishNonSpecialists {
             displayName = CSTRING(PunishNonSpecialists_DisplayName);
             description = CSTRING(PunishNonSpecialists_Description);
+            typeName = "BOOL";
+            defaultValue = 1;
+        };
+        class ExplodeOnDefuse {
+            displayName = CSTRING(ExplodeOnDefuse_DisplayName);
+            description = CSTRING(ExplodeOnDefuse_Description);
             typeName = "BOOL";
             defaultValue = 1;
         };

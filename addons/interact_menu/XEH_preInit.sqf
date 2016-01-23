@@ -4,8 +4,10 @@ ADDON = false;
 
 PREP(addActionToClass);
 PREP(addActionToObject);
+PREP(addMainAction);
 PREP(compileMenu);
 PREP(compileMenuSelfAction);
+PREP(compileMenuZeus);
 PREP(collectActiveActionTree);
 PREP(createAction);
 PREP(ctrlSetParsedTextCached);
@@ -24,6 +26,8 @@ PREP(renderMenu);
 PREP(renderSelector);
 PREP(setupTextColors);
 PREP(splitPath);
+PREP(userActions_addHouseActions);
+PREP(userActions_getHouseActions);
 
 // Event handlers for all interact menu controls
 DFUNC(handleMouseMovement) = {
@@ -70,9 +74,7 @@ GVAR(collectedActionPoints) = [];
 GVAR(foundActions) = [];
 GVAR(lastTimeSearchedActions) = -1000;
 
-
-// Init CAManBase menus
-["CAManBase"] call FUNC(compileMenu);
-["CAManBase"] call FUNC(compileMenuSelfAction);
+// Init zeus menu
+[] call FUNC(compileMenuZeus);
 
 ADDON = true;

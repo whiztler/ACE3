@@ -3,34 +3,28 @@ class CfgVehicles {
     class CAManBase: Man {
         class ACE_SelfActions {
             class ACE_Equipment {
-                class GVAR(show) {
-                    //Opens the mini map
-                    displayName = CSTRING(show);
-                    condition = QUOTE(([DISPLAY_MODE_DISPLAY] call FUNC(canShow)) && {GVAR(currentShowMode) != DISPLAY_MODE_DISPLAY});
-                    statement = QUOTE([DISPLAY_MODE_DISPLAY] call FUNC(openDisplay));
-                    showDisabled = 0;
-                    priority = 0.2;
-                    icon = QUOTE(PATHTOF(UI\icon_microDAGR.paa));
-                    exceptions[] = {"notOnMap", "isNotInside"};
-                };
                 class GVAR(configure) {
                     //Opens the dialog
                     displayName = CSTRING(configure);
                     condition = QUOTE(([DISPLAY_MODE_DIALOG] call FUNC(canShow)) && {GVAR(currentShowMode) != DISPLAY_MODE_DIALOG});
                     statement = QUOTE([DISPLAY_MODE_DIALOG] call FUNC(openDisplay));
-                    showDisabled = 0;
-                    priority = 0.1;
                     icon = QUOTE(PATHTOF(UI\icon_microDAGR.paa));
-                    exceptions[] = {"notOnMap", "isNotInside"};
-                };
-                class GVAR(close) {
-                    displayName = CSTRING(closeUnit);
-                    condition = QUOTE(GVAR(currentShowMode) != DISPLAY_MODE_CLOSED);
-                    statement = QUOTE([DISPLAY_MODE_CLOSED] call FUNC(openDisplay));
-                    showDisabled = 0;
-                    priority = 0.3;
-                    icon = QUOTE(PATHTOF(UI\icon_microDAGR.paa));
-                    exceptions[] = {"notOnMap", "isNotInside"};
+                    exceptions[] = {"notOnMap", "isNotInside", "isNotSitting"};
+                    class GVAR(show) {
+                        //Opens the mini map
+                        displayName = CSTRING(show);
+                        condition = QUOTE(([DISPLAY_MODE_DISPLAY] call FUNC(canShow)) && {GVAR(currentShowMode) != DISPLAY_MODE_DISPLAY});
+                        statement = QUOTE([DISPLAY_MODE_DISPLAY] call FUNC(openDisplay));
+                        icon = QUOTE(PATHTOF(UI\icon_microDAGR.paa));
+                        exceptions[] = {"notOnMap", "isNotInside", "isNotSitting"};
+                    };
+                    class GVAR(close) {
+                        displayName = CSTRING(closeUnit);
+                        condition = QUOTE(GVAR(currentShowMode) != DISPLAY_MODE_CLOSED);
+                        statement = QUOTE([DISPLAY_MODE_CLOSED] call FUNC(openDisplay));
+                        icon = QUOTE(PATHTOF(UI\icon_microDAGR.paa));
+                        exceptions[] = {"notOnMap", "isNotInside", "isNotSitting"};
+                    };
                 };
             };
         };
@@ -43,7 +37,8 @@ class CfgVehicles {
         displayName = CSTRING(Module_DisplayName);
         function = QFUNC(moduleMapFill);
         scope = 2;
-        isGlobal = 1;
+        isGlobal = 0;
+        isSingular = 1;
         icon = QUOTE(PATHTOF(UI\Icon_Module_microDAGR_ca.paa));
         functionPriority = 0;
         class Arguments {
@@ -52,9 +47,9 @@ class CfgVehicles {
                 description = CSTRING(MapDataAvailable_Description);
                 typeName = "NUMBER";
                 class values {
-                    class None {name = CSTRING(None); value = MAP_DETAIL_SAT; default = 1;};
-                    class Side {name = CSTRING(Side); value = MAP_DETAIL_TOPOROADS;};
-                    class Unique {name = CSTRING(Unique); value = MAP_DETAIL_NONE;};
+                    class Full {name = CSTRING(MapFill_Full); value = MAP_DETAIL_SAT; default = 1;};
+                    class Roads {name = CSTRING(MapFill_OnlyRoads); value = MAP_DETAIL_TOPOROADS;};
+                    class Disabled {name = CSTRING(MapFill_None); value = MAP_DETAIL_NONE;};
                 };
             };
         };

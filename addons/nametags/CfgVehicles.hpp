@@ -7,6 +7,7 @@ class CfgVehicles {
         function = QFUNC(moduleNameTags);
         scope = 2;
         isGlobal = 1;
+        isSingular = 1;
         icon = QUOTE(PATHTOF(UI\Icon_Module_NameTags_ca.paa));
         class Arguments {
             class showPlayerNames {
@@ -16,7 +17,7 @@ class CfgVehicles {
                 class values {
                     class DoNotForce {
                         default = 1;
-                        name = CSTRING(DoNotForce);
+                        name = ECSTRING(common,DoNotForce);
                         value = -1;
                     };
                     class ForceHide {
@@ -54,7 +55,7 @@ class CfgVehicles {
                 class values {
                     class DoNotForce {
                         default = 1;
-                        name = CSTRING(DoNotForce);
+                        name = ECSTRING(common,DoNotForce);
                         value = -1;
                     };
                     class ForceHide {
@@ -74,7 +75,7 @@ class CfgVehicles {
                 class values {
                     class DoNotForce {
                         default = 1;
-                        name = CSTRING(DoNotForce);
+                        name = ECSTRING(common,DoNotForce);
                         value = -1;
                     };
                     class ForceHide {
